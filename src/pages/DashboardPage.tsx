@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Check, Circle, Lock } from 'lucide-react';
 import { AppLayout } from '@/layouts/AppLayout';
 import { Card, CardBody, CardHeader } from '@/components/ui/Card';
-import { Alert } from '@/components/ui/Alert';
 import { Spinner } from '@/components/ui/Feedback';
 import { useAuth } from '@/hooks/useAuth';
 import { useActiveBusiness } from '@/hooks/useActiveBusiness';
