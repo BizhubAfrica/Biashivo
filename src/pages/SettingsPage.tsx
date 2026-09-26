@@ -19,7 +19,6 @@ import {
   currentUserBusinessRole,
 } from '@/services/business';
 import { fetchProfile, updateProfile } from '@/services/users';
-import { writeAuditLog } from '@/services/audit';
 import {
   BUSINESS_TYPE_OPTIONS,
   CURRENCY_OPTIONS,
@@ -134,7 +133,6 @@ function BusinessTab({ business, canEdit, onSaved }: { business: Business; canEd
         currency: form.currency,
         tax_pin: form.tax_pin.trim() || null,
       });
-      await writeAuditLog(business.id, 'business.settings_updated', { entityType: 'business', entityId: business.id });
       await onSaved();
       setMessage({ type: 'success', text: 'Business profile saved.' });
     } catch (err) {
