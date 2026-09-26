@@ -12,7 +12,6 @@ import { Spinner } from '@/components/ui/Feedback';
 import { useAuth } from '@/hooks/useAuth';
 import { useActiveBusiness } from '@/hooks/useActiveBusiness';
 import {
-  fetchBusinessById,
   updateBusiness,
   fetchBusinessMembers,
   addBusinessMember,
