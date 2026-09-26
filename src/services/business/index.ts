@@ -46,12 +46,17 @@ export interface BusinessUpdateInput {
 }
 
 export async function updateBusiness(id: string, patch: BusinessUpdateInput): Promise<Business> {
-  const { data, error } = await supabase
-    .from('businesses')
-    .update(patch)
-    .eq('id', id)
-    .select('id, name, business_type, country, currency, phone, email, address, tax_pin, logo_url, created_at, updated_at')
-    .maybeSingle();
+  const { data, error } = await supabase.rpc('update_business_profile', {
+    p_business_id: id,
+    p_name: patch.name,
+    p_business_type: patch.business_type ?? null,
+    p_country: patch.country,
+    p_currency: patch.currency,
+    p_phone: patch.phone ?? null,
+    p_email: patch.email ?? null,
+    p_address: patch.address ?? null,
+    p_tax_pin: patch.tax_pin ?? null,
+  });
   if (error) throw new Error(friendlyError(error));
   if (!data) throw new Error('We couldn’t save those changes. Please try again.');
   return data as Business;
