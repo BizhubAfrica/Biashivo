@@ -12,18 +12,3 @@ export async function fetchAuditLogs(businessId: string, limit = 50): Promise<Au
   if (error) throw new Error(friendlyError(error));
   return (data as AuditLog[]) ?? [];
 }
-
-export async function writeAuditLog(
-  businessId: string,
-  action: string,
-  options?: { entityType?: string; entityId?: string; metadata?: Record<string, unknown> }
-): Promise<void> {
-  const { error } = await supabase.rpc('write_audit_log', {
-    p_business_id: businessId,
-    p_action: action,
-    p_entity_type: options?.entityType ?? null,
-    p_entity_id: options?.entityId ?? null,
-    p_metadata: options?.metadata ?? {},
-  });
-  if (error) throw new Error(friendlyError(error));
-}
