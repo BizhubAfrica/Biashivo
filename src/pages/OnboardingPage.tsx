@@ -10,7 +10,6 @@ import { FullPageLoader } from '@/components/ui/Feedback';
 import { useAuth } from '@/hooks/useAuth';
 import { useActiveBusiness } from '@/hooks/useActiveBusiness';
 import { onboardBusiness } from '@/services/business';
-import { writeAuditLog } from '@/services/audit';
 import {
   BUSINESS_TYPE_OPTIONS,
   CURRENCY_OPTIONS,
@@ -59,17 +58,12 @@ export function OnboardingPage() {
     setSubmitting(true);
     setErrors({});
     try {
-      const businessId = await onboardBusiness({
+      await onboardBusiness({
         name: name.trim(),
         business_type: type as typeof BUSINESS_TYPE_OPTIONS[number] | null,
         currency,
         country: 'KE',
         phone: phone.trim() || null,
-      });
-      await writeAuditLog(businessId, 'onboarding.completed', {
-        entityType: 'business',
-        entityId: businessId,
-        metadata: { name, business_type: type, currency },
       });
       await refresh();
       navigate('/dashboard', { replace: true });
